@@ -3,6 +3,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 import TodosCard from './TodosCard'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
 import { useBoardStore } from '@/store/BoardStore'
+import { useModelStore } from '@/store/ModelStore'
 
 type Props = {
     id: TypedColumn,
@@ -22,6 +23,7 @@ const Column = ({ id, todos, index }: Props) => {
     const [searchString] = useBoardStore(state => [
         state.searchString
     ])
+    const openModel = useModelStore(state => state.openModel)
     return (
         <Draggable draggableId={id} index={index}>
             {(provided) =>
@@ -52,7 +54,7 @@ const Column = ({ id, todos, index }: Props) => {
                                     {provided.placeholder}
 
                                     <div className='flex justify-end items-end p-2'>
-                                        <button className='text-green-500 hover:text-green-600'>
+                                        <button onClick={openModel} className='text-green-500 hover:text-green-600'>
                                             <PlusCircleIcon className='w-8 h-8' />
                                         </button>
                                     </div>
